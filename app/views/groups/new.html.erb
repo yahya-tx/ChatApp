@@ -1,0 +1,38 @@
+<div class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 h-screen flex items-center justify-center">
+  <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-3xl">
+    <h1 class="text-4xl font-bold text-center text-gray-900 mb-6">Create a New Group</h1>
+    
+    <%= form_with model: @group, url: conversation_window_groups_path(@conversation_window), local: true, class: "space-y-6" do |f| %>
+      
+      <!-- Group Name -->
+      <div class="mb-6">
+        <%= f.label :title, "Group Name", class: "block text-lg font-semibold text-gray-800 mb-2" %>
+        <%= f.text_field :title, class: "w-full border-2 border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+
+      <!-- Group Description -->
+      <div class="mb-6">
+        <%= f.label :description, "Description", class: "block text-lg font-semibold text-gray-800 mb-2" %>
+        <%= f.text_area :description, class: "w-full border-2 border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+
+      <!-- Group Image -->
+      <div class="mb-6">
+        <%= f.label :image, "Group Image", class: "block text-lg font-semibold text-gray-800 mb-2" %>
+        <%= f.file_field :image, class: "w-full border-2 border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+
+      <!-- Participants -->
+      <div class="mb-6">
+        <%= f.label :user_ids, "Participants", class: "block text-lg font-semibold text-gray-800 mb-2" %>
+        <%= f.collection_select :user_ids, User.where.not(id: current_user.id), :id, :name, {}, { multiple: true, class: "w-full border-2 border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500", id: "user_select" } %>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="flex justify-center">
+        <%= f.submit "Create Group", class: "bg-gradient-to-r from-purple-600 to-pink-600 text-white text-lg font-semibold py-3 px-8 rounded-full shadow-lg hover:opacity-80 transition duration-300" %>
+      </div>
+
+    <% end %>
+  </div>
+</div>

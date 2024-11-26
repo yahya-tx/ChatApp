@@ -1,0 +1,23 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  pool: 5
+
+development:
+  <<: *default
+  database: text_app
+  username: text_app
+  password: 1234
+
+test:
+  <<: *default
+  database: text_app_test
+  username: text_app
+  password: 1234
+
+production:
+  <<: *default
+  database: text_app_production
+  username: text_app_production
+  password: <%= ENV['CHAT_APP_DATABASE_PASSWORD'] %>

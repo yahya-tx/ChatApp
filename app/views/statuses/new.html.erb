@@ -1,0 +1,38 @@
+<h2 class="text-2xl font-bold mb-6 text-center">Create a New Status</h2>
+
+<%= form_with(model: [@conversation_window, @status], local: true, html: { enctype: "multipart/form-data" }) do |form| %>
+  <div class="w-full max-w-lg mx-auto bg-white p-8 border border-gray-200 rounded-lg shadow-md">
+    <!-- Status Type -->
+    <div class="flex flex-wrap -mx-3 mb-6">
+      <div class="w-full px-3">
+        <%= form.label :status_type, "Status Type", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.select :status_type, options_for_select([['Text', 'text'], ['Image', 'image'], ['Video', 'video']]), 
+            { prompt: 'Select Type' }, class: "block w-full mt-2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+    </div>
+
+    <!-- Status Content -->
+    <div class="flex flex-wrap -mx-3 mb-6">
+      <div class="w-full px-3">
+        <%= form.label :content, "Status Content", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.text_area :content, placeholder: "Enter your status text here...", rows: 4, 
+            class: "block w-full mt-2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+    </div>
+
+    <!-- Attachment -->
+    <div class="flex flex-wrap -mx-3 mb-6">
+      <div class="w-full px-3">
+        <%= form.label :attachment, "Attach Image/Video", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.file_field :attachment, class: "block w-full mt-2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="flex flex-wrap -mx-3">
+      <div class="w-full px-3">
+        <%= form.submit "Post Status", class: "w-full py-3 px-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300" %>
+      </div>
+    </div>
+  </div>
+<% end %>

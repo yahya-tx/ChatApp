@@ -1,0 +1,44 @@
+<div id="status-container" class="flex items-center justify-center h-screen bg-gray-900 text-white relative">
+  <div class="status-item p-6 bg-gray-800 rounded-lg shadow-lg" style="width: 1200px; height: 675px;">
+    <% if @status.status_type == 'image' %>
+      <div class="progress-bar absolute top-0 left-0 h-1 bg-green-500" style="width: 0%;"></div>
+      <%= image_tag @status.attachment, class: 'status-image w-full h-full object-cover rounded-lg' %>
+      <script>
+        const progressBar = document.querySelector('.progress-bar');
+        let width = 0;
+        const interval = setInterval(() => {
+          width += 1.67; // Increment width (100% / 6 seconds = ~1.67% per 100ms)
+          progressBar.style.width = width + '%';
+          if (width >= 100) {
+            clearInterval(interval);
+            window.location.href = "<%= conversation_window_statuses_path(@conversation_window) %>";
+          }
+        }, 100); // Update every 100ms
+      </script>
+    <% elsif @status.status_type == 'video' %>
+      <video src="<%= url_for(@status.attachment) %>" controls autoplay class="status-video w-full h-full object-cover rounded-lg"></video>
+      <script>
+        document.querySelector('.status-video').addEventListener('ended', function() {
+          window.location.href = "<%= conversation_window_statuses_path(@conversation_window) %>";
+        });
+      </script>
+    <% else %>
+      <div class="progress-bar absolute top-0 left-0 h-1 bg-blue-500" style="width: 0%;"></div>
+      <p class="text-white text-center text-2xl font-semibold w-full h-full flex items-center justify-center">
+        <%= @status.content %>
+      </p>
+      <script>
+        const progressBar = document.querySelector('.progress-bar');
+        let width = 0;
+        const interval = setInterval(() => {
+          width += 1; // Increment width (100% / 10 seconds = 1% per 100ms)
+          progressBar.style.width = width + '%';
+          if (width >= 100) {
+            clearInterval(interval);
+            window.location.href = "<%= conversation_window_statuses_path(@conversation_window) %>";
+          }
+        }, 100); // Update every 100ms
+      </script>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: MyText
+  user: one
+  status_type: MyString
+  conversation_window: one
+
+two:
+  content: MyText
+  user: two
+  status_type: MyString
+  conversation_window: two
